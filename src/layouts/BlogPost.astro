@@ -6,6 +6,8 @@ import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import { Image } from "astro:assets";
 import "../styles/md.css";
+import "../styles/global.css";
+import Main from "./Main.astro";
 
 type Props = CollectionEntry<"blog">["data"];
 
@@ -17,8 +19,8 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
     <BaseHead title={title} description={description} />
   </head>
 
-  <body class="flex w-screen justify-center dark:bg-slate-800 dark:text-white">
-    <div class="w-full max-w-screen-lg px-4">
+  <body class="bg-background flex w-screen justify-center">
+    <div class="w-full max-w-5xl px-4">
       <Header />
 
       <main class="px-4">

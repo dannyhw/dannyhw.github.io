@@ -7,6 +7,7 @@ import GithubCard from "../components/GithubCard.astro";
 import Header from "../components/Header.astro";
 import TechnologyTag from "../components/TechnologyTag.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+import Main from "../layouts/Main.astro";
 
 const posts = (await getCollection("blog"))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
@@ -18,8 +19,8 @@ const posts = (await getCollection("blog"))
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
   </head>
-  <body class="flex w-screen justify-center dark:bg-slate-800 dark:text-white">
-    <div class="w-full max-w-screen-lg px-4">
+  <body class="bg-background text-foreground flex w-screen justify-center">
+    <div class="w-full max-w-5xl px-4">
       <Header />
 
       <main class="px-4">

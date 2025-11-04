@@ -7,7 +7,6 @@ import GithubCard from "../components/GithubCard.astro";
 import Header from "../components/Header.astro";
 import TechnologyTag from "../components/TechnologyTag.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
-import Main from "../layouts/Main.astro";
 
 const posts = (await getCollection("blog"))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
@@ -128,7 +127,7 @@ const posts = (await getCollection("blog"))
 
               <a
                 href="/blog"
-                class="ml-auto text-blue-500 underline hover:text-blue-800 dark:hover:text-blue-300"
+                class="hover:text-muted-foreground ml-auto underline"
                 >View all</a
               >
             </div>

@@ -1,6 +1,42 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+html {
+  scroll-timeline: --main-timeline;
+}
+
+.head-opacity {
+  background-color: transparent;
+  animation: opacity-animation linear;
+  animation-timeline: --main-timeline;
+  animation-range: 0px 400px;
+  animation-fill-mode: both;
+}
+.backdrop {
+  position: absolute;
+  inset: 0;
+  height: 200%;
+  backdrop-filter: blur(16px);
+  mask-image: linear-gradient(to bottom, black 0% 50%, transparent 50% 100%);
+}
+
+@keyframes opacity-animation {
+  0% {
+    background-color: oklch(from var(--background) l c h / 0.1);
+    backdrop-filter: blur(0px);
+  }
+
+  10% {
+    background-color: oklch(from var(--background) l c h / 0.4);
+    backdrop-filter: blur(4px);
+  }
+
+  100% {
+    background-color: oklch(from var(--background) l c h / 0.6);
+    backdrop-filter: blur(12px);
+  }
+}
+
 :root {
   --background: oklch(0.99 0 0);
   --foreground: oklch(0.25 0 0);

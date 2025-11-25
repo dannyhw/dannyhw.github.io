@@ -32,10 +32,9 @@ Add to your scripts in `package.json`
 "build-storybook": "storybook build"
 ```
 
-
 ## Configuration files
 
-Add a `.storybook` folder with a `main.ts` and  `preview.ts`.
+Add a `.storybook` folder with a `main.ts` and `preview.ts`.
 
 ### main.ts
 
@@ -81,7 +80,6 @@ const preview: Preview = {
 export default preview;
 ```
 
-
 ## Example story
 
 Lets add a component file
@@ -91,7 +89,6 @@ Lets add a component file
 export const Button = ({ text }: { text: string }) => {
   return <button>{text}</button>;
 };
-
 ```
 
 Then we create a stories file and import it there.
@@ -111,7 +108,6 @@ export const Primary = {
     text: "Primary Button",
   },
 };
-
 ```
 
 ## Run it!
@@ -125,7 +121,6 @@ bun run storybook
 The final product should look like this:
 
 ![screenshot of the final storybook](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/1xqhkiup56bzobaibd0x.png)
-
 
 ## All done!
 

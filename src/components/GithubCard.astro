@@ -11,66 +11,72 @@ interface Props {
 const { name, tagLine, href, stars, language, languageColor } = Astro.props;
 ---
 
-<div
-  class="flex w-full flex-col gap-y-4 rounded-md border border-gray-200 p-4 md:w-[calc(50%-1rem)]"
+<a
+  class="bg-card group shadow-accent flex min-w-0 rounded-md border hover:shadow-sm"
+  href={href}
 >
-  <a class="flex flex-row items-center gap-x-2" href={href}>
-    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" width="16">
-      <path
-        fill="currentColor"
-        d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7.75.75 0 1 1-1.072 1.05A2.495 2.495 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.708A2.486 2.486 0 0 1 4.5 9h8ZM5 12.25a.25.25 0 0 1 .25-.25h3.5a.25.25 0 0 1 .25.25v3.25a.25.25 0 0 1-.4.2l-1.45-1.087a.249.249 0 0 0-.3 0L5.4 15.7a.25.25 0 0 1-.4-.2Z"
+  <div class="flex h-full min-w-0 flex-col gap-y-4 p-6">
+    <span class="inline-flex w-full min-w-0 flex-row items-center gap-x-2">
+      <svg
+        aria-hidden="true"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
+        class="shrink-0"
       >
-      </path>
-    </svg>
-
-    <p
-      class="text-base leading-none text-blue-500 underline transition-all hover:text-blue-800 dark:hover:text-blue-300"
-    >
-      {name}
-    </p>
-  </a>
-
-  <p class="overflow-hidden text-ellipsis whitespace-nowrap text-base">
-    {tagLine}
-  </p>
-
-  <p class="flex flex-row">
-    {
-      language && (
-        <span class="mr-3">
-          <span
-            class:list={[
-              "inline-block h-3 w-3 rounded-full",
-              languageColor ?? "bg-blue-500",
-            ]}
-          />
-          <span>{language}</span>
-        </span>
-      )
-    }
-
-    {
-      stars && (
-        <a
-          href="https://github.com/storybookjs/react-native/stargazers"
-          class="flex flex-row items-center gap-x-1"
+        <path
+          fill="currentColor"
+          d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7.75.75 0 1 1-1.072 1.05A2.495 2.495 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.708A2.486 2.486 0 0 1 4.5 9h8ZM5 12.25a.25.25 0 0 1 .25-.25h3.5a.25.25 0 0 1 .25.25v3.25a.25.25 0 0 1-.4.2l-1.45-1.087a.249.249 0 0 0-.3 0L5.4 15.7a.25.25 0 0 1-.4-.2Z"
         >
-          <svg
-            aria-label="stars"
-            role="img"
-            height="16"
-            viewBox="0 0 16 16"
-            width="16"
-            class="inline-block"
-          >
-            <path
-              fill="currentColor"
-              d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.751.751 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Zm0 2.445L6.615 5.5a.75.75 0 0 1-.564.41l-3.097.45 2.24 2.184a.75.75 0 0 1 .216.664l-.528 3.084 2.769-1.456a.75.75 0 0 1 .698 0l2.77 1.456-.53-3.084a.75.75 0 0 1 .216-.664l2.24-2.183-3.096-.45a.75.75 0 0 1-.564-.41L8 2.694Z"
+        </path>
+      </svg>
+
+      <p
+        class="min-w-0 truncate pb-1.5 text-base leading-none text-blue-500 underline transition-all group-hover:text-blue-800 dark:group-hover:text-blue-300"
+      >
+        {name}
+      </p>
+    </span>
+
+    <p class="line-clamp-2 min-w-0 overflow-hidden text-base text-ellipsis">
+      {tagLine}
+    </p>
+
+    <p class="flex flex-row">
+      {
+        language && (
+          <span class="mr-3">
+            <span
+              class:list={[
+                "inline-block h-3 w-3 rounded-full",
+                languageColor ?? "bg-blue-500",
+              ]}
             />
-          </svg>
-          {stars}+
-        </a>
-      )
-    }
-  </p>
-</div>
+            <span>{language}</span>
+          </span>
+        )
+      }
+
+      {
+        stars && (
+          <span class="flex flex-row items-center gap-x-1">
+            <svg
+              aria-label="stars"
+              role="img"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+              class="inline-block"
+            >
+              <path
+                fill="currentColor"
+                d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.751.751 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Zm0 2.445L6.615 5.5a.75.75 0 0 1-.564.41l-3.097.45 2.24 2.184a.75.75 0 0 1 .216.664l-.528 3.084 2.769-1.456a.75.75 0 0 1 .698 0l2.77 1.456-.53-3.084a.75.75 0 0 1 .216-.664l2.24-2.183-3.096-.45a.75.75 0 0 1-.564-.41L8 2.694Z"
+              />
+            </svg>
+            {stars}+
+          </span>
+        )
+      }
+    </p>
+  </div>
+</a>

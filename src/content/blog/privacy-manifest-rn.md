@@ -7,7 +7,6 @@ heroImage: "/privacy-manifest.png"
 
 If you've been shipping to the app store in the past month you will probably have seen this warning from apple
 
-
 ![email from apple](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/avxu93bv81udvr70w7y4.png)
 
 This looks scary and confusing but its actually a lot simpler than it looks.
@@ -93,7 +92,6 @@ There is also a guide from expo on how to do this in case you're still stuck htt
 
 For earlier versions of expo check out this comment from [@getKonstantin](https://twitter.com/getKonstantin):
 
-
 github https://github.com/expo/expo/issues/27796#issuecomment-2059966033
 
 ## RN CLI
@@ -159,8 +157,7 @@ Your `PrivacyInfo.xcprivacy` file should get something like this
 </plist>
 ```
 
-This is a modified version of the file from the react [native cli template](https://github.com/facebook/react-native/blob/main/packages/react-native/template/ios/HelloWorld/PrivacyInfo.xcprivacy
-)
+This is a modified version of the file from the react [native cli template](https://github.com/facebook/react-native/blob/main/packages/react-native/template/ios/HelloWorld/PrivacyInfo.xcprivacy)
 
 ## What do those values mean?
 
@@ -170,7 +167,7 @@ These values come from the apple documentation, heres what they mean
 
 **API Name**: NSPrivacyAccessedAPICategoryFileTimestamp
 
-**C617.1**:  Declare this reason to access the timestamps, size, or other metadata of files inside the app container, app group container, or the app’s CloudKit container.
+**C617.1**: Declare this reason to access the timestamps, size, or other metadata of files inside the app container, app group container, or the app’s CloudKit container.
 
 ### System boot time
 

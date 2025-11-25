@@ -11,11 +11,8 @@ interface Props {
 const { post, lazyLoad } = Astro.props;
 ---
 
-<li class="group w-full md:w-[calc(50%-1rem)] md:first:w-full">
-  <a
-    class="no-underline transition-all group-hover:text-indigo-700 dark:group-hover:text-indigo-400"
-    href={`/blog/${post.slug}/`}
-  >
+<li class="group w-full md:w-[calc(50%-1rem)]">
+  <a class="no-underline hover:underline" href={`/blog/${post.slug}/`}>
     {
       post.data.heroImage && (
         <Image
@@ -24,20 +21,16 @@ const { post, lazyLoad } = Astro.props;
           src={post.data.heroImage}
           loading={lazyLoad ? "lazy" : "eager"}
           alt=""
-          class="mb-2 aspect-video rounded-lg border border-transparent transition-all group-first:w-full group-hover:shadow-md md:mb-4 dark:group-hover:border-gray-500 dark:group-hover:shadow-indigo-500"
+          class="group-hover:border-border shadow-accent mb-2 aspect-video rounded-lg border border-transparent transition-all group-hover:shadow-md md:mb-4"
         />
       )
     }
 
-    <h4
-      class="m-0 text-2xl text-black group-hover:text-indigo-700 group-first:md:text-4xl dark:text-white dark:group-hover:text-indigo-400"
-    >
+    <h4 class="m-0 text-2xl">
       {post.data.title}
     </h4>
 
-    <p
-      class="text-gray-500 group-hover:text-indigo-700 dark:text-gray-400 dark:group-hover:text-indigo-300"
-    >
+    <p class="text-muted-foreground">
       <FormattedDate date={post.data.pubDate} />
     </p>
   </a>

@@ -18,12 +18,11 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
     <BaseHead title={title} description={description} />
   </head>
 
-  <body class="bg-background flex w-screen justify-center">
-    <div class="w-full max-w-5xl px-4">
-      <Header />
-
-      <main class="px-4">
-        <article>
+  <body class="bg-background text-foreground flex w-screen flex-col">
+    <Header />
+    <div class="container mx-auto w-full">
+      <main class="mx-auto flex flex-col gap-y-4 px-2 md:px-4">
+        <article class="pt-32 pb-20 md:pt-40 md:pb-32">
           <div class="w-full">
             {
               heroImage && (
@@ -39,9 +38,9 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
             }
           </div>
 
-          <div class="m-auto max-w-screen-md p-4">
+          <div class="m-auto max-w-3xl px-2 py-4 md:px-4">
             <div class="mb-4 py-4 text-center">
-              <div class="mb-2 text-base text-gray-600 dark:text-gray-400">
+              <div class="text-muted-foreground mb-2 text-base">
                 <FormattedDate date={pubDate} />
                 {
                   updatedDate && (

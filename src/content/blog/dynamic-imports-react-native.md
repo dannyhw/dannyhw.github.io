@@ -14,6 +14,7 @@ Shout out to [@Baconbrix](https://twitter.com/Baconbrix) for contributing this f
 ## What is require.context?
 
 From the [webpack documentation](https://webpack.js.org/guides/dependency-management/#requirecontext):
+
 > It allows you to pass in a directory to search, a flag indicating whether subdirectories should be searched too, and a regular expression to match files against.
 
 Historically for react native we've never been able to do dynamic imports, neither based on a variable or a regex. However this kind of functionality has been in webpack and other web bundlers for some time. Now that we have access to require.context we can build tools like storybook and expo router without needing to generate imports at build time, we can instead dynamically import them at runtime.
@@ -25,21 +26,20 @@ require.context(
   directory,
   (useSubdirectories = true),
   (regExp = /^\.\/.*$/),
-  (mode = 'sync')
+  (mode = "sync"),
 );
 ```
 
 ```javascript
-require.context('../', true, /\.stories\.js$/);
+require.context("../", true, /\.stories\.js$/);
 ```
-
 
 The result of require context is a object like interface (RequireContext) that has two main functions.
 
 - keys: returns an array of keys (ids) which will correspond to a file path
 - An accessor `(id) => module` which given one of the keys returns the module
 
-*note: the metro implementation of require context doesn't include the `resolve` and `id` functionalities that webpack does.*
+_note: the metro implementation of require context doesn't include the `resolve` and `id` functionalities that webpack does._
 
 For example
 
@@ -47,13 +47,13 @@ For example
 const req = require.context("components", true, /\.stories\.tsx$/);
 
 req.keys().forEach((filename: string) => {
-   const module = req(filename)
+  const module = req(filename);
 
-   // you could then access the exported fields
-   // if I had a default export like
-   // export default { title: "hello" }
-   console.log(module.default.title)
-})
+  // you could then access the exported fields
+  // if I had a default export like
+  // export default { title: "hello" }
+  console.log(module.default.title);
+});
 ```
 
 For details on the implementation you can see Evan's PR to metro [here](https://github.com/facebook/metro/pull/822).
@@ -106,11 +106,10 @@ req.keys().forEach((filename: string) => {
     // fileExports contains all exports, including default and named
     const fileExports = req(filename) as ModuleExports;
 
-	// now we set an entry in the map like 'title' => module
+    // now we set an entry in the map like 'title' => module
     storiesMap.set(fileExports.default.title, fileExports);
   } catch (e) {}
 });
-
 
 let firstModule = "";
 
@@ -126,7 +125,6 @@ if (entries.length) {
   // we'll use title-storyname as an id
   firstModule = `${title}-${namedExports[0]}`;
 }
-
 
 const Content = () => {
   // we track the current componentId with this
@@ -156,7 +154,6 @@ const Content = () => {
       Component: null,
       props: {},
     };
-
   }, [currentComponent]);
 
   // we use gorhoms bottom sheet to display a list of stories
@@ -175,7 +172,7 @@ const Content = () => {
         style={{ flex: 1 }}
       />
 
-	  {/* A bottom sheet holding the list of stories */}
+      {/* A bottom sheet holding the list of stories */}
       <BottomSheet stackBehavior="replace" ref={storiesBottomSheetModalRef}>
         <StoryList
           setStory={setCurrentComponent}
@@ -186,9 +183,7 @@ const Content = () => {
     </SafeAreaView>
   );
 };
-
 ```
-
 
 If you're curious then heres a repo with the full code https://github.com/dannyhw/sb-ui-experiment
 

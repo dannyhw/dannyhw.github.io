@@ -29,7 +29,7 @@ export default StorybookUI;
 
 Now I'm going to customize metro config to complete the setup
 
-This command will generate the config file:  `npx expo customize metro.config.js`
+This command will generate the config file: `npx expo customize metro.config.js`
 
 ```js
 // metro.config.js
@@ -124,9 +124,7 @@ This file is generated based on your config and handles importing all the necess
 
 This concludes the on-device part of the setup. You should be able to run `yarn ios` or `yarn android` and see storybook render your button story.
 
-
 ![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ch4t7afun9xiforkdubd.jpg)
-
 
 ## Web setup
 
@@ -156,10 +154,7 @@ module.exports = {
     "../components/**/*.stories.mdx",
     "../components/**/*.stories.@(js|jsx|ts|tsx)",
   ],
-  addons: [
-    "@storybook/addon-essentials",
-    "@storybook/addon-react-native-web",
-  ],
+  addons: ["@storybook/addon-essentials", "@storybook/addon-react-native-web"],
   core: {
     builder: "webpack5",
   },

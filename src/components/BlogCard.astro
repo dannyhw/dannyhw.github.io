@@ -11,7 +11,7 @@ interface Props {
 const { post, lazyLoad } = Astro.props;
 ---
 
-<li class="group w-full md:w-[calc(50%-1rem)] md:first:w-full">
+<li class="group w-full md:w-[calc(50%-1rem)]">
   <a class="no-underline hover:underline" href={`/blog/${post.slug}/`}>
     {
       post.data.heroImage && (
@@ -21,12 +21,12 @@ const { post, lazyLoad } = Astro.props;
           src={post.data.heroImage}
           loading={lazyLoad ? "lazy" : "eager"}
           alt=""
-          class="group-hover:border-border shadow-accent mb-2 aspect-video rounded-lg border border-transparent transition-all group-first:w-full group-hover:shadow-md md:mb-4"
+          class="group-hover:border-border shadow-accent mb-2 aspect-video rounded-lg border border-transparent transition-all group-hover:shadow-md md:mb-4"
         />
       )
     }
 
-    <h4 class="m-0 text-2xl group-first:md:text-4xl">
+    <h4 class="m-0 text-2xl">
       {post.data.title}
     </h4>
 

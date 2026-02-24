@@ -18,58 +18,71 @@ const posts = (await getCollection("blog"))
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
   </head>
-  <body class="bg-background text-foreground flex w-screen flex-col">
+  <body class="bg-background text-foreground flex w-full flex-col">
     <Header />
     <div class="container mx-auto w-full max-w-[1440px]">
       <main class="mx-auto flex flex-col gap-y-4 px-4">
-        <div
-          class="flex max-w-3xl flex-col gap-y-4 pt-32 pb-20 md:pt-40 md:pb-32"
-        >
-          <h1 class="text-5xl md:text-7xl">Daniel Williams</h1>
 
-          <p class="text-muted-foreground text-lg md:text-xl">
+        <!-- ── HERO ─────────────────────────────────── -->
+        <div class="flex max-w-3xl flex-col gap-y-6 pt-32 pb-20 md:pt-40 md:pb-32">
+
+          <!-- status badge -->
+          <div class="flex items-center gap-2">
+            <span
+              class="inline-block h-2 w-2 rounded-full"
+              style="background: var(--neon-green); box-shadow: 0 0 8px var(--neon-green);"
+            ></span>
+            <span
+              class="font-mono text-xs tracking-widest uppercase"
+              style="color: rgba(0,229,255,0.5);"
+            >SYSTEM_ONLINE</span>
+          </div>
+
+          <h1
+            class="glitch text-5xl md:text-7xl"
+            data-text="Daniel Williams"
+          >
+            Daniel Williams
+          </h1>
+
+          <p class="text-muted-foreground text-lg md:text-xl leading-relaxed">
             I'm an experienced developer specialised in React and React Native.
             I've worked on a variety of projects across the tech stack for web
             and mobile applications. I maintain a few open source projects and
             have written a few blog posts.
           </p>
 
-          <div class="flex w-full flex-row flex-wrap gap-4">
+          <div class="flex w-full flex-row flex-wrap gap-3 pt-2">
             <TechnologyTag
               href="https://reactnative.dev"
               name="React Native"
               svg="react"
               className="hover:border-sky-500"
             />
-
             <TechnologyTag
               href="https://react.dev/"
               name="ReactJS"
               svg="react"
               className="hover:border-sky-500"
             />
-
             <TechnologyTag
               href="https://www.typescriptlang.org/"
               name="Typescript"
               svg="typescript"
               className="hover:border-blue-500"
             />
-
             <TechnologyTag
               href="https://ecma-international.org/publications-and-standards/standards/ecma-262/"
               name="Javascript"
               svg="javascript"
               className="hover:border-yellow-400"
             />
-
             <TechnologyTag
               href="https://storybook.js.org/"
               name="Storybook"
               svg="storybook"
               className="hover:border-pink-500"
             />
-
             <TechnologyTag
               href="https://nodejs.org"
               name="NodeJS"
@@ -79,8 +92,11 @@ const posts = (await getCollection("blog"))
           </div>
         </div>
 
-        <div class="mt-10 flex flex-col gap-y-4 py-20 md:py-32">
-          <h2 class="max-w-3xl text-3xl font-medium tracking-tight md:text-4xl">
+        <!-- ── OPEN SOURCE ─────────────────────────── -->
+        <div class="mt-4 flex flex-col gap-y-4 py-20 md:py-32">
+          <h2
+            class="cyber-heading max-w-3xl text-3xl font-medium tracking-tight md:text-4xl"
+          >
             Open source projects
           </h2>
 
@@ -89,7 +105,7 @@ const posts = (await getCollection("blog"))
             libraries. I've also been helping to maintain Create Expo Stack.
           </p>
 
-          <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             <GithubCard
               name="storybookjs/react-native"
               tagLine="📓 Storybook for React Native!"
@@ -98,7 +114,6 @@ const posts = (await getCollection("blog"))
               languageColor="bg-blue-500"
               stars={1_000}
             />
-
             <GithubCard
               name="storybookjs/addon-react-native-web"
               tagLine="Build react-native-web projects in Storybook for React"
@@ -107,7 +122,6 @@ const posts = (await getCollection("blog"))
               languageColor="bg-blue-500"
               stars={75}
             />
-
             <GithubCard
               name="roninoss/create-expo-stack"
               tagLine="CLI tool to initialize a React Native application with Expo. Provides options to include Typescript, file-based routing via Expo Router, configuration based routing via pure React Navigation, styling via Nativewind, Restyle, Unistyles, StyleSheets, or Tamagui, and/or backend as a service such as Firebase and Supabase."
@@ -116,7 +130,6 @@ const posts = (await getCollection("blog"))
               languageColor="bg-blue-500"
               stars={1200}
             />
-
             <GithubCard
               name="dannyhw"
               tagLine="For more visit my github profile..."
@@ -125,15 +138,16 @@ const posts = (await getCollection("blog"))
           </div>
         </div>
 
-        <div class="mt-10 flex flex-col gap-y-4">
+        <!-- ── RECENT POSTS ────────────────────────── -->
+        <div class="mt-4 flex flex-col gap-y-4 pb-20">
           <div class="flex flex-col gap-2 md:flex-row md:items-center">
-            <h2 class="text-3xl">Recent Blog Posts</h2>
-
+            <h2 class="cyber-heading text-3xl">Recent Blog Posts</h2>
             <a
               href="/blog"
-              class="hover:text-muted-foreground underline md:ml-auto"
-              >View all</a
+              class="view-all-link font-mono text-xs uppercase tracking-widest no-underline transition-all md:ml-auto"
             >
+              View all &rsaquo;
+            </a>
           </div>
 
           <ul class="m-0 flex list-none flex-wrap gap-8 p-0">
@@ -150,3 +164,13 @@ const posts = (await getCollection("blog"))
     </div>
   </body>
 </html>
+
+<style>
+  .view-all-link {
+    color: rgba(0, 229, 255, 0.5);
+  }
+  .view-all-link:hover {
+    color: var(--neon-cyan);
+    text-shadow: 0 0 8px rgba(0, 229, 255, 0.6);
+  }
+</style>

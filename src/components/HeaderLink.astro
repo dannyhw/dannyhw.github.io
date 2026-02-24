@@ -13,10 +13,10 @@ const isActive = href === pathname || href === "/" + subpath?.[0];
 <a
   href={href}
   class:list={[
-    "text-foreground hover:text-muted-foreground inline-block text-lg transition-all hover:underline",
+    "nav-link font-mono text-sm uppercase tracking-widest transition-all no-underline",
     {
-      ["font-extrabold underline"]: isActive,
-      ["no-underline"]: !isActive,
+      active: isActive,
+      inactive: !isActive,
     },
     className,
   ]}
@@ -24,3 +24,43 @@ const isActive = href === pathname || href === "/" + subpath?.[0];
 >
   <slot />
 </a>
+
+<style>
+  .nav-link {
+    position: relative;
+    padding: 0.25em 0.1em;
+    color: rgba(0, 229, 255, 0.55);
+  }
+
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--neon-cyan);
+    box-shadow: 0 0 6px rgba(0, 229, 255, 0.8);
+    transition: width 0.25s ease;
+  }
+
+  .nav-link:hover {
+    color: var(--neon-cyan);
+    text-shadow: 0 0 8px rgba(0, 229, 255, 0.5);
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  .nav-link.active {
+    color: var(--neon-cyan);
+    text-shadow:
+      0 0 7px rgba(0, 229, 255, 0.9),
+      0 0 14px rgba(0, 229, 255, 0.4);
+  }
+
+  .nav-link.active::after {
+    width: 100%;
+  }
+</style>

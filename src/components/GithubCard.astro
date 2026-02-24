@@ -11,46 +11,42 @@ interface Props {
 const { name, tagLine, href, stars, language, languageColor } = Astro.props;
 ---
 
-<a
-  class="bg-card group shadow-accent flex min-w-0 rounded-md border hover:shadow-sm"
-  href={href}
->
-  <div class="flex h-full min-w-0 flex-col gap-y-4 p-6">
+<a class="github-card cyber-card bg-card group flex min-w-0 border" href={href} style="border-color: rgba(0,229,255,0.15);">
+  <div class="flex h-full min-w-0 flex-col gap-y-3 p-5">
+
+    <!-- Repo name row -->
     <span class="inline-flex w-full min-w-0 flex-row items-center gap-x-2">
       <svg
         aria-hidden="true"
-        height="16"
+        height="14"
         viewBox="0 0 16 16"
-        width="16"
+        width="14"
         class="shrink-0"
+        style="color: rgba(0,229,255,0.5);"
       >
         <path
           fill="currentColor"
           d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7.75.75 0 1 1-1.072 1.05A2.495 2.495 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.708A2.486 2.486 0 0 1 4.5 9h8ZM5 12.25a.25.25 0 0 1 .25-.25h3.5a.25.25 0 0 1 .25.25v3.25a.25.25 0 0 1-.4.2l-1.45-1.087a.249.249 0 0 0-.3 0L5.4 15.7a.25.25 0 0 1-.4-.2Z"
-        >
-        </path>
+        ></path>
       </svg>
-
-      <p
-        class="min-w-0 truncate pb-1.5 text-base leading-none text-blue-500 underline transition-all group-hover:text-blue-800 dark:group-hover:text-blue-300"
-      >
+      <p class="repo-name font-mono min-w-0 truncate text-sm leading-none transition-all">
         {name}
       </p>
     </span>
 
-    <p class="line-clamp-2 min-w-0 overflow-hidden text-base text-ellipsis">
+    <!-- Tag line -->
+    <p class="line-clamp-2 min-w-0 overflow-hidden text-sm text-ellipsis text-muted-foreground">
       {tagLine}
     </p>
 
-    <p class="flex flex-row">
+    <!-- Meta: language + stars -->
+    <p class="flex flex-row items-center gap-x-3 mt-auto font-mono text-xs">
       {
         language && (
-          <span class="mr-3">
+          <span class="flex items-center gap-x-1.5" style="color: rgba(0,229,255,0.5);">
             <span
-              class:list={[
-                "inline-block h-3 w-3 rounded-full",
-                languageColor ?? "bg-blue-500",
-              ]}
+              class="inline-block h-2 w-2"
+              style="background: var(--neon-cyan); box-shadow: 0 0 5px rgba(0,229,255,0.6);"
             />
             <span>{language}</span>
           </span>
@@ -59,14 +55,15 @@ const { name, tagLine, href, stars, language, languageColor } = Astro.props;
 
       {
         stars && (
-          <span class="flex flex-row items-center gap-x-1">
+          <span class="flex flex-row items-center gap-x-1" style="color: rgba(0,229,255,0.4);">
             <svg
               aria-label="stars"
               role="img"
-              height="16"
+              height="12"
               viewBox="0 0 16 16"
-              width="16"
+              width="12"
               class="inline-block"
+              style="color: var(--neon-yellow); filter: drop-shadow(0 0 3px rgba(255,230,0,0.5));"
             >
               <path
                 fill="currentColor"
@@ -80,3 +77,27 @@ const { name, tagLine, href, stars, language, languageColor } = Astro.props;
     </p>
   </div>
 </a>
+
+<style>
+  .github-card {
+    transition:
+      border-color 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  .github-card:hover {
+    border-color: rgba(0, 229, 255, 0.45) !important;
+    box-shadow:
+      0 0 15px rgba(0, 229, 255, 0.12),
+      0 0 30px rgba(0, 229, 255, 0.05);
+  }
+
+  .repo-name {
+    color: rgba(0, 229, 255, 0.65);
+  }
+
+  .github-card:hover .repo-name {
+    color: var(--neon-cyan);
+    text-shadow: 0 0 8px rgba(0, 229, 255, 0.5);
+  }
+</style>

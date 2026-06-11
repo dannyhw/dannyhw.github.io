@@ -1,268 +1,256 @@
+/* Orbit markdown prose — applied to rendered post content (.slotted) */
+
 .slotted {
-  --accent: #00e5ff;
-  --accent-dim: rgba(0, 229, 255, 0.6);
-  --accent-pink: #ff0080;
-  --code-bg: rgba(0, 229, 255, 0.06);
-  --code-border: rgba(0, 229, 255, 0.15);
+  font-size: 1.0625rem;
+  line-height: var(--leading-relaxed);
+  color: var(--text-body);
+}
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    margin: 0 0 1rem 0;
-    color: #e0f7fa;
-    font-family: "Orbitron", sans-serif;
-    letter-spacing: 0.04em;
-  }
+.slotted > * + * {
+  margin-top: var(--space-4);
+}
 
-  h1 {
-    font-size: 3em;
-    color: var(--accent);
-    text-shadow:
-      0 0 10px rgba(0, 229, 255, 0.5),
-      0 0 20px rgba(0, 229, 255, 0.2);
-  }
+.slotted h1,
+.slotted h2,
+.slotted h3,
+.slotted h4 {
+  font-family: var(--font-display);
+  color: var(--text-strong);
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  margin-bottom: 0;
+}
 
-  h2 {
-    font-size: 2.2em;
-    color: #b2ebf2;
-  }
+.slotted h1 {
+  font-size: var(--text-d3);
+  font-weight: var(--weight-bold);
+}
 
-  h2::before {
-    content: "//";
-    color: var(--accent-pink);
-    margin-right: 0.55em;
-    font-family: "Share Tech Mono", monospace;
-    font-size: 0.6em;
-    opacity: 0.8;
-    vertical-align: middle;
-  }
+.slotted h2 {
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-semibold);
+  margin-top: var(--space-7);
+  padding-top: var(--space-5);
+  border-top: var(--border-hair) solid var(--border);
+}
 
-  h3 {
-    font-size: 1.8em;
-    color: #b2ebf2;
-  }
+.slotted h3 {
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semibold);
+  margin-top: var(--space-6);
+}
 
-  h4 {
-    font-size: 1.4em;
-    color: #b2ebf2;
-  }
+.slotted h4 {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
+  margin-top: var(--space-5);
+}
 
-  h5 {
-    font-size: 1.2em;
-  }
+.slotted a {
+  color: var(--text-link);
+  font-weight: var(--weight-medium);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklch, var(--text-link) 35%, transparent);
+  text-underline-offset: 3px;
+}
 
-  strong,
-  b {
-    font-weight: 700;
-    color: var(--accent);
-  }
+.slotted a:hover {
+  text-decoration-color: var(--text-link);
+}
 
-  a {
-    color: var(--accent);
-    text-decoration: underline;
-    text-decoration-color: rgba(0, 229, 255, 0.35);
-    text-underline-offset: 3px;
-    transition: text-shadow 0.2s ease;
-  }
+.slotted strong,
+.slotted b {
+  color: var(--text-strong);
+  font-weight: var(--weight-semibold);
+}
 
-  a:hover {
-    color: var(--accent);
-    text-shadow: 0 0 8px rgba(0, 229, 255, 0.6);
-    text-decoration-color: rgba(0, 229, 255, 0.8);
-  }
+.slotted em {
+  color: var(--text-body);
+}
 
-  p {
-    margin-bottom: 1em;
-    line-height: 1.7;
-  }
+.slotted code {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  background: var(--surface-inset);
+  color: var(--text-strong);
+  padding: 0.12em 0.4em;
+  border-radius: var(--radius-xs);
+}
 
-  .prose p {
-    margin-bottom: 2em;
-  }
+.slotted ul {
+  margin: var(--space-4) 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
 
-  textarea {
-    width: 100%;
-    font-size: 16px;
-  }
+.slotted ul li {
+  padding-left: 1.5em;
+  position: relative;
+}
 
-  input {
-    font-size: 16px;
-  }
+.slotted ul li::before {
+  content: "›";
+  position: absolute;
+  left: 0.25em;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-weight: var(--weight-semibold);
+}
 
-  img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 0;
-    margin: 1em 0;
-    border: 1px solid rgba(0, 229, 255, 0.15);
-  }
+.slotted ol {
+  margin: var(--space-4) 0;
+  padding-left: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
 
-  code {
-    padding: 2px 6px;
-    background-color: var(--code-bg);
-    border: 1px solid var(--code-border);
-    border-radius: 0;
-    color: var(--accent);
-    font-family: "Share Tech Mono", monospace;
-    font-size: 0.88em;
-  }
+.slotted ol li::marker {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  color: var(--text-muted);
+}
 
-  pre {
-    padding: 1.5em;
-    border-radius: 0;
-    margin: 1em 0;
-    background: rgba(0, 10, 18, 0.85) !important;
-    border: 1px solid rgba(0, 229, 255, 0.15);
-    border-left: 3px solid rgba(0, 229, 255, 0.5);
-    position: relative;
-    overflow: auto;
-  }
+.slotted blockquote {
+  margin: var(--space-5) 0;
+  padding: var(--space-3) var(--space-5);
+  border-left: 3px solid var(--secondary);
+  background: var(--secondary-soft);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  color: var(--text-body);
+}
 
-  pre::before {
-    content: "// code";
-    position: absolute;
-    top: 6px;
-    right: 10px;
-    font-family: "Share Tech Mono", monospace;
-    font-size: 10px;
-    color: rgba(0, 229, 255, 0.25);
-    letter-spacing: 0.1em;
-  }
+.slotted blockquote p {
+  margin: 0;
+}
 
-  pre > code {
-    all: unset;
-    font-family: "Share Tech Mono", monospace;
-    font-size: 0.9em;
-    color: #b2ebf2;
-  }
+.slotted hr {
+  border: 0;
+  border-top: var(--border-hair) solid var(--border);
+  margin: var(--space-7) 0;
+}
 
-  blockquote {
-    border-left: 3px solid var(--accent-pink);
-    padding: 0.5em 0 0.5em 1.25em;
-    margin: 1.5em 0;
-    background: rgba(255, 0, 128, 0.04);
-    font-size: 1.1em;
-    color: rgba(224, 247, 250, 0.8);
-    position: relative;
-  }
+.slotted table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--space-5) 0;
+  font-size: var(--text-sm);
+}
 
-  blockquote::before {
-    content: '"';
-    position: absolute;
-    top: -0.5em;
-    left: 0.5em;
-    font-size: 2.5em;
-    color: rgba(255, 0, 128, 0.25);
-    font-family: "Orbitron", sans-serif;
-    line-height: 1;
-  }
+.slotted th {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  font-weight: var(--weight-medium);
+  color: var(--text-muted);
+  text-align: left;
+  background: var(--surface-sunken);
+}
 
-  hr {
-    border: none;
-    height: 1px;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(0, 229, 255, 0.4),
-      transparent
-    );
-    margin: 2em 0;
-  }
+.slotted th,
+.slotted td {
+  padding: 0.6em 0.9em;
+  border: var(--border-hair) solid var(--border);
+}
 
-  ol {
-    display: block;
-    list-style-type: decimal;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    padding-inline-start: 40px;
-    unicode-bidi: isolate;
-  }
+.slotted td {
+  font-variant-numeric: tabular-nums;
+  color: var(--text-body);
+}
 
-  ul {
-    display: block;
-    list-style: none;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    padding-inline-start: 0;
-  }
+/* images & embeds get the hairline Orbit frame */
+.slotted img {
+  max-width: 100%;
+  height: auto;
+  margin: var(--space-5) 0;
+  border: var(--border-hair) solid var(--border);
+  border-radius: var(--radius-md);
+}
 
-  ul li {
-    padding-left: 1.4em;
-    position: relative;
-    margin-bottom: 0.35em;
-  }
+.slotted iframe {
+  width: 100%;
+  margin: var(--space-5) 0;
+  border: var(--border-hair) solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-sunken);
+}
 
-  ul li::before {
-    content: "›";
-    position: absolute;
-    left: 0.2em;
-    color: var(--accent);
-    font-family: "Share Tech Mono", monospace;
-  }
+/* ---------- code blocks (shiki output, wrapped by the layout script) ---------- */
 
-  li {
-    display: list-item;
-    text-align: -webkit-match-parent;
-    unicode-bidi: isolate;
-  }
+.ow-code {
+  background: var(--code-bg);
+  border-radius: var(--radius-md);
+  overflow: clip;
+  margin: var(--space-5) 0;
+  border: var(--border-hair) solid color-mix(in oklch, var(--ink-50) 8%, transparent);
+}
 
-  table {
-    position: relative;
-    width: 100%;
-    table-layout: fixed;
-    border-spacing: 0;
-    border-collapse: separate;
-    margin: 1.5em 0;
-  }
+.ow-code-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.15rem 0.3rem 0.15rem var(--space-4);
+  border-bottom: var(--border-hair) solid rgba(255, 255, 255, 0.06);
+}
 
-  th,
-  td {
-    padding: 0.6em 0.8em;
-    border-width: 1px;
-    border-style: solid;
-    border-color: rgba(0, 229, 255, 0.12);
-    text-align: left;
-    font-variant-numeric: tabular-nums;
-  }
+.ow-code-lang {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--ink-400);
+  letter-spacing: var(--tracking-wide);
+}
 
-  thead > tr > th:first-of-type,
-  tbody > tr > *:first-child {
-    border-left-style: solid;
-  }
+.ow-code-copy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--ink-400);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
 
-  thead th[scope="column"] {
-    position: sticky;
-    z-index: 10;
-    top: -1px;
-    background-color: rgba(0, 229, 255, 0.06);
-    color: var(--accent);
-    font-family: "Orbitron", sans-serif;
-    font-size: 0.75em;
-    letter-spacing: 0.08em;
-    border-color: rgba(0, 229, 255, 0.25);
-  }
+.ow-code-copy:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--beam-400);
+}
 
-  tbody > tr:last-of-type > * {
-    border-bottom-style: solid;
-  }
+.ow-code-copy svg {
+  width: 15px;
+  height: 15px;
+}
 
-  thead > tr > th {
-    border-top-style: none;
-  }
+.slotted pre,
+.ow-code pre {
+  margin: 0;
+  padding: var(--space-4);
+  overflow-x: auto;
+  background: var(--code-bg) !important;
+  border-radius: 0;
+}
 
-  tr > *:last-child {
-    border-right-style: none;
-  }
+.slotted pre code,
+.ow-code pre code {
+  all: unset;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--code-fg);
+  line-height: var(--leading-relaxed);
+  white-space: pre;
+}
 
-  thead > tr > th:first-of-type,
-  tbody > tr > *:first-child {
-    border-left-style: none;
-  }
-
-  tbody > tr:last-of-type > * {
-    border-bottom-style: none;
-  }
+/* a bare pre that the wrapper script hasn't touched yet still looks right */
+.slotted > pre {
+  margin: var(--space-5) 0;
+  border-radius: var(--radius-md);
+  border: var(--border-hair) solid color-mix(in oklch, var(--ink-50) 8%, transparent);
 }

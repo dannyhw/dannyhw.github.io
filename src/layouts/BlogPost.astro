@@ -1,16 +1,30 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
 import BaseHead from "../components/BaseHead.astro";
-import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
-import { Image } from "astro:assets";
+import Header from "../components/Header.astro";
 import "../styles/md.css";
 import "../styles/global.css";
 
-type Props = CollectionEntry<"blog">["data"];
+interface PagerLink {
+  slug: string;
+  title: string;
+}
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+type Props = CollectionEntry<"blog">["data"] & {
+  minutesRead?: number;
+  older?: PagerLink;
+  newer?: PagerLink;
+};
+
+const { title, description, pubDate, updatedDate, heroImage, minutesRead, older, newer } =
+  Astro.props;
+
+const eyebrowDate = pubDate
+  .toLocaleDateString("en-us", { year: "numeric", month: "short", day: "2-digit" })
+  .replace(",", "");
 ---
 
 <html lang="en">
@@ -18,52 +32,137 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
     <BaseHead title={title} description={description} />
   </head>
 
-  <body class="bg-background text-foreground flex w-full flex-col">
-    <Header />
-    <div class="container mx-auto w-full max-w-[1440px]">
-      <main class="mx-auto flex flex-col gap-y-4 px-2 md:px-4">
-        <article class="pt-8 pb-20 md:pt-12 md:pb-32">
-          <div class="w-full">
+  <body>
+    <div class="ow-page">
+      <Header />
+
+      <article class="ow-article">
+        <header class="ow-article-head">
+          <span class="orbit-eyebrow">{`// ${eyebrowDate}`}</span>
+          <h1 class="ow-article-title">{title}</h1>
+          <p class="ow-article-desc">{description}</p>
+          <div class="ow-article-meta">
+            {minutesRead && <span>{minutesRead} min read</span>}
             {
-              heroImage && (
-                <Image
-                  loading={"eager"}
-                  width={1020}
-                  height={510}
-                  src={heroImage}
-                  alt=""
-                  class="mx-auto my-0 block aspect-video rounded-xl shadow-md"
-                />
+              updatedDate && (
+                <span>
+                  Updated <FormattedDate date={updatedDate} />
+                </span>
               )
             }
           </div>
+        </header>
 
-          <div class="m-auto max-w-3xl px-2 py-4 md:px-4">
-            <div class="mb-4 py-4 text-center">
-              <div class="text-muted-foreground mb-2 text-base">
-                <FormattedDate date={pubDate} />
-                {
-                  updatedDate && (
-                    <div class="italic">
-                      Last updated on <FormattedDate date={updatedDate} />
-                    </div>
-                  )
-                }
-              </div>
+        {
+          heroImage && (
+            <Image
+              loading="eager"
+              width={1020}
+              height={510}
+              src={heroImage}
+              alt=""
+              class="ow-article-hero"
+            />
+          )
+        }
 
-              <h1 class="mb-4 text-5xl">{title}</h1>
+        <div class="slotted">
+          <slot />
+        </div>
 
-              <hr />
-            </div>
-
-            <div class="slotted">
-              <slot />
-            </div>
+        <div class="ow-postfoot">
+          <span class="orbit-avatar orbit-avatar--ring">
+            <span class="orbit-avatar__media">DW</span>
+          </span>
+          <div class="ow-postfoot-text">
+            <span class="ow-postfoot-name">Daniel Williams</span>
+            <span class="ow-postfoot-sub">Maintainer, React Native Storybook</span>
           </div>
-        </article>
-      </main>
+          <div class="ow-postfoot-actions">
+            <a
+              class="orbit-btn orbit-btn--outline orbit-btn--sm"
+              href="https://github.com/dannyhw"
+              target="_blank"
+              rel="noopener"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><path
+                  d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+                ></path></svg
+              >
+              Follow
+            </a>
+          </div>
+        </div>
+
+        {
+          (older || newer) && (
+            <nav class="ow-pager">
+              {older && (
+                <a class="ow-pager-btn" href={`/blog/${older.slug}/`}>
+                  <span>← Older</span>
+                  <strong>{older.title}</strong>
+                </a>
+              )}
+              {newer && (
+                <a class="ow-pager-btn ow-pager-btn--next" href={`/blog/${newer.slug}/`}>
+                  <span>Newer →</span>
+                  <strong>{newer.title}</strong>
+                </a>
+              )}
+            </nav>
+          )
+        }
+      </article>
 
       <Footer />
     </div>
+
+    <script>
+      // Wrap each code block in the Orbit code frame: language bar + copy button.
+      const copyIcon =
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+      const checkIcon =
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+
+      document.querySelectorAll(".slotted pre").forEach((pre) => {
+        const wrapper = document.createElement("div");
+        wrapper.className = "ow-code";
+
+        const bar = document.createElement("div");
+        bar.className = "ow-code-bar";
+
+        const lang = document.createElement("span");
+        lang.className = "ow-code-lang";
+        lang.textContent = pre.getAttribute("data-language") || "code";
+
+        const btn = document.createElement("button");
+        btn.className = "ow-code-copy";
+        btn.setAttribute("aria-label", "Copy code");
+        btn.innerHTML = copyIcon;
+        btn.addEventListener("click", () => {
+          const text = pre.textContent || "";
+          navigator.clipboard
+            .writeText(text)
+            .then(() => {
+              btn.innerHTML = checkIcon;
+              setTimeout(() => {
+                btn.innerHTML = copyIcon;
+              }, 1400);
+            })
+            .catch(() => {});
+        });
+
+        bar.append(lang, btn);
+        pre.parentNode?.insertBefore(wrapper, pre);
+        wrapper.append(bar, pre);
+      });
+    </script>
   </body>
 </html>

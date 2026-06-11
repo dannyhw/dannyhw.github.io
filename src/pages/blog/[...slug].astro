@@ -3,18 +3,39 @@ import { type CollectionEntry, getCollection } from "astro:content";
 import BlogPost from "../../layouts/BlogPost.astro";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blog");
-  return posts.map((post) => ({
-    params: { slug: post.slug },
-    props: post,
-  }));
+  const posts = (await getCollection("blog")).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+  );
+  return posts.map((post, i) => {
+    const newer = posts[i - 1];
+    const older = posts[i + 1];
+    return {
+      params: { slug: post.slug },
+      props: {
+        post,
+        newer: newer ? { slug: newer.slug, title: newer.data.title } : undefined,
+        older: older ? { slug: older.slug, title: older.data.title } : undefined,
+      },
+    };
+  });
 }
-type Props = CollectionEntry<"blog">;
 
-const post = Astro.props;
+interface PagerLink {
+  slug: string;
+  title: string;
+}
+
+type Props = {
+  post: CollectionEntry<"blog">;
+  newer?: PagerLink;
+  older?: PagerLink;
+};
+
+const { post, newer, older } = Astro.props;
 const { Content } = await post.render();
+const minutesRead = Math.max(1, Math.round(post.body.split(/\s+/).length / 220));
 ---
 
-<BlogPost {...post.data}>
+<BlogPost {...post.data} minutesRead={minutesRead} newer={newer} older={older}>
   <Content />
 </BlogPost>

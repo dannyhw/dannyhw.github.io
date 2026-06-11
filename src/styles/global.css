@@ -791,14 +791,34 @@ a.orbit-tag:hover {
 }
 .ow-repo-meta {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-4);
-  white-space: nowrap;
+  gap: var(--space-3) var(--space-4);
   font-family: var(--font-mono);
-  font-size: var(--text-xs);
+  font-size: var(--text-sm);
   color: var(--text-muted);
   padding-top: var(--space-3);
   border-top: var(--border-hair) solid var(--border);
+}
+.ow-repo-stat,
+.ow-lang {
+  white-space: nowrap;
+}
+.ow-repo-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--text-body);
+  font-weight: var(--weight-medium);
+}
+.ow-repo-stat svg {
+  flex: none;
+}
+.ow-repo-stars svg {
+  color: var(--warn-500);
+}
+.ow-repo-downloads svg {
+  color: var(--pulse-500);
 }
 .ow-lang {
   display: inline-flex;

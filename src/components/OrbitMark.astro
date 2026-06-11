@@ -1,0 +1,22 @@
+---
+interface Props {
+  size?: number;
+}
+
+const { size = 28 } = Astro.props;
+---
+
+<svg width={size} height={size} viewBox="0 0 48 48" fill="none" aria-hidden="true">
+  <ellipse
+    cx="24"
+    cy="24"
+    rx="20"
+    ry="9"
+    transform="rotate(-24 24 24)"
+    stroke="currentColor"
+    stroke-width="2.5"
+    opacity="0.9"></ellipse>
+  <circle cx="24" cy="24" r="6.5" fill="currentColor"></circle>
+  <circle cx="40.5" cy="14.2" r="4" fill="var(--beam-500)" stroke="var(--bg)" stroke-width="2"
+  ></circle>
+</svg>

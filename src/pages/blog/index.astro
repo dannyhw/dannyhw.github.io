@@ -1,32 +1,74 @@
 ---
-import BaseHead from "../../components/BaseHead.astro";
-import Header from "../../components/Header.astro";
-import Footer from "../../components/Footer.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
 import { getCollection } from "astro:content";
-import BlogCard from "../../components/BlogCard.astro";
+import BaseHead from "../../components/BaseHead.astro";
+import Footer from "../../components/Footer.astro";
+import Header from "../../components/Header.astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
 
 const posts = (await getCollection("blog")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
+
+const shortDate = (d: Date) =>
+  `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, "0")}`;
+
+const years = [...new Set(posts.map((p) => p.data.pubDate.getFullYear()))];
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <BaseHead title={`Blog · ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
   </head>
 
-  <body class="bg-background text-foreground flex w-full flex-col">
-    <Header />
-    <div class="container mx-auto w-full max-w-[1440px]">
-      <main class="mx-auto flex flex-col gap-y-4 px-4">
-        <section class="pt-8 pb-20 md:pt-12 md:pb-32">
-          <ul class="m-0 flex list-none flex-wrap gap-4 p-0 md:gap-8">
-            {posts.map((post, i) => <BlogCard post={post} lazyLoad={i > 4} />)}
-          </ul>
-        </section>
-      </main>
+  <body>
+    <div class="ow-page">
+      <Header />
+
+      <section class="ow-section" style="padding-bottom: 0;">
+        <span class="orbit-eyebrow">{`// BLOG · ${posts.length} POSTS`}</span>
+        <h2 style="margin-bottom: 0.75rem;">Writing</h2>
+        <p class="ow-section-sub" style="margin-top: 0;">
+          Notes on React Native, Storybook and the tooling in between.
+        </p>
+      </section>
+
+      <section class="ow-section" style="max-width: var(--container-lg);">
+        <ul class="ow-postlist">
+          {
+            years.map((year) => (
+              <>
+                <li class="ow-yearmark">{`// ${year}`}</li>
+                {posts
+                  .filter((p) => p.data.pubDate.getFullYear() === year)
+                  .map((post) => (
+                    <li>
+                      <a class="ow-postrow" href={`/blog/${post.slug}/`}>
+                        <span class="ow-postrow-date">{shortDate(post.data.pubDate)}</span>
+                        <span class="ow-postrow-title">{post.data.title}</span>
+                        <span class="ow-postrow-meta">
+                          <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            width="15"
+                            height="15"
+                          >
+                            <line x1="5" y1="12" x2="19" y2="12" />
+                            <polyline points="12 5 19 12 12 19" />
+                          </svg>
+                        </span>
+                      </a>
+                    </li>
+                  ))}
+              </>
+            ))
+          }
+        </ul>
+      </section>
 
       <Footer />
     </div>

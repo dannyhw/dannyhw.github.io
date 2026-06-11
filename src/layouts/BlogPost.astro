@@ -148,12 +148,15 @@ const eyebrowDate = pubDate
         btn.innerHTML = copyIcon;
         btn.addEventListener("click", () => {
           const text = pre.textContent || "";
-          navigator.clipboard.writeText(text).then(() => {
-            btn.innerHTML = checkIcon;
-            setTimeout(() => {
-              btn.innerHTML = copyIcon;
-            }, 1400);
-          });
+          navigator.clipboard
+            .writeText(text)
+            .then(() => {
+              btn.innerHTML = checkIcon;
+              setTimeout(() => {
+                btn.innerHTML = copyIcon;
+              }, 1400);
+            })
+            .catch(() => {});
         });
 
         bar.append(lang, btn);

@@ -908,7 +908,8 @@ a.orbit-tag:hover {
   gap: var(--space-4);
   flex-wrap: wrap;
 }
-.ow-foot-links a {
+.ow-foot-links a,
+.ow-foot-links button {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   color: var(--text-muted);
@@ -918,7 +919,8 @@ a.orbit-tag:hover {
   padding: 0;
   cursor: pointer;
 }
-.ow-foot-links a:hover {
+.ow-foot-links a:hover,
+.ow-foot-links button:hover {
   color: var(--accent);
 }
 .ow-foot-theme-label--dark {
@@ -1045,7 +1047,8 @@ a.orbit-tag:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  touch-action: none;
+  /* pan-y keeps vertical page scroll working on touch; horizontal drags rotate */
+  touch-action: pan-y;
   cursor: grab;
   user-select: none;
   -webkit-user-select: none;

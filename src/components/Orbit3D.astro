@@ -162,8 +162,12 @@ const chipTransform = (i: number) => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const s = { rotX: restX, rotY: 0, velY: 0, dragging: false, lastX: 0, lastY: 0 };
+    let lastFrame = "";
 
     const apply = () => {
+      const frame = `${s.rotX.toFixed(2)},${s.rotY.toFixed(2)}`;
+      if (frame === lastFrame) return;
+      lastFrame = frame;
       group.style.transform = `rotateX(${s.rotX}deg) rotateY(${s.rotY}deg)`;
       // billboard chips against Y so logos stay readable; keep group X tilt for depth
       chips.forEach((el, i) => {
@@ -173,6 +177,7 @@ const chipTransform = (i: number) => {
       if (core) core.style.transform = `rotateY(${-s.rotY}deg)`;
     };
 
+    let raf = 0;
     const tick = () => {
       if (!s.dragging) {
         if (Math.abs(s.velY) > 0.02) {
@@ -184,9 +189,18 @@ const chipTransform = (i: number) => {
         s.rotX += (restX - s.rotX) * 0.05;
       }
       apply();
-      requestAnimationFrame(tick);
+      raf = requestAnimationFrame(tick);
     };
-    requestAnimationFrame(tick);
+
+    // only animate while the stage is on screen
+    new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        if (!raf) raf = requestAnimationFrame(tick);
+      } else if (raf) {
+        cancelAnimationFrame(raf);
+        raf = 0;
+      }
+    }).observe(stage);
 
     stage.addEventListener("pointerdown", (e) => {
       s.dragging = true;
